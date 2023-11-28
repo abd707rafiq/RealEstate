@@ -1,12 +1,15 @@
 import React from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { useDispatch,useSelector } from 'react-redux'
+import { signInFail,signInStart,signInsuccess } from '../redux/user/userslice'
+import axios from 'axios'
 
 const SignOut = () => {
   const [data,setData]=useState([]);
-  const [error,setError]=useState(null);
-  const [loading,setLoading]=useState(false);
+  const { loading, error } = useSelector((state) => state.user);
   const navigate=useNavigate();
+  const dispatch=useDispatch();
   const handleChange=(e)=>{
     setData({
       ...data,
@@ -16,28 +19,27 @@ const SignOut = () => {
 
     
   }
-  const handleSubmit= async()=>{
+  const handleSubmit= async(e)=>{
     e.preventDefault();
     try{
-      setLoading(true);
+      dispatch(signInStart());
       const res=await axios.post("http://localhost:3000/signin",{
-        header:{
+        headers:{
           'Content-Type':"application/json"
         }
       })
       const data=res.data;
+      console.log(data);
       if(data.success===false){
-        setLoading(false);
-        setError(data.message);
+        dispatch(signInFail(data.message));
+        
         return;
       }
-      setLoading(false);
-      setError(null);
+      dispatch(signInsuccess(data));
       navigate('/');
 
     }catch(e){
-      setLoading(false);
-      setError(e.message);
+      dispatch(signInFail(e.message));
     }
 
   }
