@@ -2,6 +2,8 @@ import React from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
+
+import Hello from '../components/Hello';
 const SignIn = () => {
   const[formdata,setFormdata]=useState([]);
   const[loading,setLoading]=useState(false);
@@ -58,6 +60,8 @@ const SignIn = () => {
       
       
       >{loading ? 'Loading...' : 'Sign Up'}</button>
+      <Hello/>
+   
       </form>
       <div className="flex gap-2 mt-5">
         <p>Have an account?</p>

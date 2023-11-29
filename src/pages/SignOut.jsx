@@ -4,6 +4,9 @@ import { useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { signInFail,signInStart,signInsuccess } from '../redux/user/userslice'
 import axios from 'axios'
+import Hello from '../components/Hello'
+
+
 
 const SignOut = () => {
   const [formdata,setFormData]=useState([]);
@@ -68,6 +71,7 @@ const SignOut = () => {
       >
         {loading ? 'Loading...':'SignIN'}
       </button>
+    <Hello/>
     </form>
     <div className='flex gap-2 mt-5'>
       <p>Dont have an account?</p>
