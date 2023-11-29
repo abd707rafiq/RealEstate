@@ -6,28 +6,26 @@ import { signInFail,signInStart,signInsuccess } from '../redux/user/userslice'
 import axios from 'axios'
 
 const SignOut = () => {
-  const [data,setData]=useState([]);
+  const [formdata,setFormData]=useState([]);
   const { loading, error } = useSelector((state) => state.user);
   const navigate=useNavigate();
   const dispatch=useDispatch();
   const handleChange=(e)=>{
-    setData({
-      ...data,
+    setFormData({
+      ...formdata,
      [e.target.id]:e.target.value
 
     });
-
-    
   }
   const handleSubmit= async(e)=>{
     e.preventDefault();
     try{
       dispatch(signInStart());
-      const res=await axios.post("http://localhost:3000/signin",{
+      const res=await axios.post("http://localhost:3000/signin",formdata,{
         headers:{
-          'Content-Type':"application/json"
+          "Content-Type":"application/json"
         }
-      })
+      });
       const data=res.data;
       console.log(data);
       if(data.success===false){
