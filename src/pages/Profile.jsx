@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux'
 import { updateFail,updateStart,updateSucces } from '../redux/user/userslice';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 const Profile = () => {
   const {currentUser ,loading, error} = useSelector((state) => state.user)
   const [formData, setFormData] = useState({});
@@ -49,6 +50,9 @@ const Profile = () => {
         >
           {loading ? 'Loading...' : 'Update'}
         </button>
+        <Link className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95' to={"/create"}>
+          Create Listing
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span className='text-red-700 cursor-pointer'>Delete account</span>
